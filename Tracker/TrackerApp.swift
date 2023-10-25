@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct TrackerApp: App {
+    
+    @StateObject var homeVM = HomeViewModel(locationViewModel: LocationHandlerMVVM())
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(homeVM)
         }
     }
 }
