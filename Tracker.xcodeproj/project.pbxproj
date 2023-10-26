@@ -15,6 +15,7 @@
 		DD2BA3652AE81E4600F058D7 /* Truck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2BA3642AE81E4600F058D7 /* Truck.swift */; };
 		DD2BA3672AE836CF00F058D7 /* LocationMVVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2BA3662AE836CF00F058D7 /* LocationMVVM.swift */; };
 		DD2BA3692AE887AF00F058D7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2BA3682AE887AF00F058D7 /* HomeViewModel.swift */; };
+		DDC1DB062AE9B1A500FCD396 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC1DB052AE9B1A500FCD396 /* MapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		DD2BA3642AE81E4600F058D7 /* Truck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Truck.swift; sourceTree = "<group>"; };
 		DD2BA3662AE836CF00F058D7 /* LocationMVVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMVVM.swift; sourceTree = "<group>"; };
 		DD2BA3682AE887AF00F058D7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		DDC1DB052AE9B1A500FCD396 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				DD217C452AE9503600032FB4 /* Info.plist */,
 				DD2BA3562AE8197F00F058D7 /* TrackerApp.swift */,
 				DD2BA3582AE8197F00F058D7 /* ContentView.swift */,
+				DDC1DB052AE9B1A500FCD396 /* MapView.swift */,
 				DD2BA3662AE836CF00F058D7 /* LocationMVVM.swift */,
 				DD2BA3682AE887AF00F058D7 /* HomeViewModel.swift */,
 				DD2BA3642AE81E4600F058D7 /* Truck.swift */,
@@ -152,6 +155,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDC1DB062AE9B1A500FCD396 /* MapView.swift in Sources */,
 				DD2BA3672AE836CF00F058D7 /* LocationMVVM.swift in Sources */,
 				DD2BA3592AE8197F00F058D7 /* ContentView.swift in Sources */,
 				DD2BA3572AE8197F00F058D7 /* TrackerApp.swift in Sources */,
@@ -297,6 +301,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "\"\"";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -330,6 +335,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "\"\"";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

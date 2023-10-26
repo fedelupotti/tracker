@@ -11,14 +11,30 @@ struct ContentView: View {
     
     @EnvironmentObject var homeVM: HomeViewModel
     
+    @State private var isMapViewPresented = false
+    
+    @State var client: Client = Client(name: "", packages: nil, location: nil)
+    
+    private func presentMapView(withClient: Client) {
+        client = withClient
+        isMapViewPresented = true
+    }
+    
     var body: some View {
         
-        List {
-            ForEach(homeVM.clients) { client in
-                VStack {
-                    Text(client.name ?? "")
-                }
+        List(homeVM.clients) { client in
+            
+            VStack {
+                Text(client.name ?? "")
             }
+            
+            .onTapGesture {
+                presentMapView(withClient: client)
+            }
+        }
+        .sheet(isPresented: $isMapViewPresented) {
+            MapView(client: self.client)
+                .presentationDetents([.medium, .large])
         }
     }
 }
