@@ -29,6 +29,7 @@ struct Client: Identifiable {
     let name: String?
     let packages: [Package]?
     let location: [Double]?
+    var isOnGoing: Bool = false
     
     var coordinate: CLLocationCoordinate2D {
         guard let lat = location?.first, let long = location?.last else { return CLLocationCoordinate2D() }
@@ -45,7 +46,13 @@ extension Truck {
         Truck(clients: [
             Client(name: "Juan", packages: [
                 Package(description: "Caja chica")],
-                   location: [-31.5672922949216, -60.6409563788899])
+                   location: [-31.59998590756544, -60.66667466019128], isOnGoing: true),
+            Client(name: "Agustin", packages: [
+                Package(description: "Celular")],
+                   location: [-31.598621742893567, -60.667433328750676]),
+            Client(name: "Ines", packages: [
+                Package(description: "Celular")],
+                   location: [-31.602905631500523, -60.666288301203245])
         ])
     ]
 }

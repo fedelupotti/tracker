@@ -13,7 +13,7 @@ struct ContentView: View {
     
     @State private var isMapViewPresented = false
     
-    @State var client: Client = Client(name: "", packages: nil, location: nil)
+    @State private var client: Client? = nil
     
     private func presentMapView(withClient: Client) {
         client = withClient
@@ -32,10 +32,14 @@ struct ContentView: View {
                 presentMapView(withClient: client)
             }
         }
-        .sheet(isPresented: $isMapViewPresented) {
-            MapView(client: self.client)
+        .sheet(item: $client) { client in
+            MapView(client: client)
                 .presentationDetents([.medium, .large])
         }
+//        .sheet(isPresented: $isMapViewPresented) {
+//            MapView(client: self.client)
+//                .presentationDetents([.medium, .large])
+//        }
     }
 }
 

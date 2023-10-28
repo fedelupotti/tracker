@@ -29,7 +29,9 @@ class HomeViewModel: ObservableObject {
         let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: lat, longitude: long), radius: 10.0, identifier: clientID.uuidString)
         locationVM.startMonitoringRegions(regions: [region])
         
-        clients.append((Truck.mock.first?.clients?.first!)!)
+        clients = Truck.mock.first!.clients!
+        
+        
     }
     
     
