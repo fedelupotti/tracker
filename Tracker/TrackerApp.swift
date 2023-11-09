@@ -10,12 +10,13 @@ import SwiftUI
 @main
 struct TrackerApp: App {
     
-    @StateObject var homeVM = HomeViewModel(locationViewModel: LocationHandlerMVVM())
+    @StateObject var homeVM = HomeViewModel()
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(homeVM)
+            ProgressAnimation()
+//            ContentView()
+//                .environmentObject(homeVM)
         }
     }
 }

@@ -15,6 +15,7 @@
 		DD2BA3652AE81E4600F058D7 /* Truck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2BA3642AE81E4600F058D7 /* Truck.swift */; };
 		DD2BA3672AE836CF00F058D7 /* LocationMVVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2BA3662AE836CF00F058D7 /* LocationMVVM.swift */; };
 		DD2BA3692AE887AF00F058D7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2BA3682AE887AF00F058D7 /* HomeViewModel.swift */; };
+		DD37D5CB2AF43F5C0057771E /* example.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD37D5CA2AF43F5C0057771E /* example.swift */; };
 		DDC1DB062AE9B1A500FCD396 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC1DB052AE9B1A500FCD396 /* MapView.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		DD2BA3642AE81E4600F058D7 /* Truck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Truck.swift; sourceTree = "<group>"; };
 		DD2BA3662AE836CF00F058D7 /* LocationMVVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMVVM.swift; sourceTree = "<group>"; };
 		DD2BA3682AE887AF00F058D7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		DD37D5CA2AF43F5C0057771E /* example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = example.swift; sourceTree = "<group>"; };
 		DDC1DB052AE9B1A500FCD396 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -46,6 +48,7 @@
 		DD2BA34A2AE8197F00F058D7 = {
 			isa = PBXGroup;
 			children = (
+				DD37D5CA2AF43F5C0057771E /* example.swift */,
 				DD217C432AE94B6D00032FB4 /* locationTest.gpx */,
 				DD2BA3552AE8197F00F058D7 /* Tracker */,
 				DD2BA3542AE8197F00F058D7 /* Products */,
@@ -155,6 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD37D5CB2AF43F5C0057771E /* example.swift in Sources */,
 				DDC1DB062AE9B1A500FCD396 /* MapView.swift in Sources */,
 				DD2BA3672AE836CF00F058D7 /* LocationMVVM.swift in Sources */,
 				DD2BA3592AE8197F00F058D7 /* ContentView.swift in Sources */,

@@ -15,37 +15,54 @@ struct ContentView: View {
     
     @State private var client: Client? = nil
     
+    @State private var downloadAmount = 0.0
+    
+    @State private var showProgressView = false
+    
     private func presentMapView(withClient: Client) {
         client = withClient
         isMapViewPresented = true
     }
-    
-    var body: some View {
         
+    var body: some View {
         List(homeVM.clients) { client in
             
             VStack {
-                Text(client.name ?? "")
-            }
-            
-            .onTapGesture {
-                presentMapView(withClient: client)
+
+                HStack {
+                    Text(client.name ?? "")
+                    Spacer()
+                    Image(systemName: client.isInGeofence ? "lock.open" : "lock")
+                        .animation(.easeInOut, value: client.isInGeofence)
+                    
+                }
+                
+                .onTapGesture {
+                    presentMapView(withClient: client)
+                }
+                .onChange(of: client.isInGeofence) {
+                    if client.isInGeofence == true {
+                        presentMapView(withClient: client)
+                    }
+                }
             }
         }
+        
+        
         .sheet(item: $client) { client in
-            MapView(client: client)
-                .presentationDetents([.medium, .large])
+            MapView(clientSelected: client) { onCommit in
+                showProgressView = onCommit
+            }
+            .presentationDetents(
+                client.isInGeofence ? [.large, .medium] : [.medium, .large]
+            )
         }
-//        .sheet(isPresented: $isMapViewPresented) {
-//            MapView(client: self.client)
-//                .presentationDetents([.medium, .large])
-//        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     
-    @StateObject static var homeVM = HomeViewModel(locationViewModel: LocationHandlerMVVM())
+    @State static var homeVM = HomeViewModel()
     
     static var previews: some View {
         ContentView()

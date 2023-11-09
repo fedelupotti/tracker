@@ -179,3 +179,50 @@ extension LocationHandlerMVVM: CLLocationManagerDelegate {
         reportLocationAuthorizationChange()
     }
 }
+
+class MonitorHandler: ObservableObject, Identifiable {
+    
+    private let manager: CLLocationManager
+    
+    var monitor: CLMonitor?
+    
+    private let monitorNameID = "TrackerAppID"
+    
+    @Published var idsInside: [String] = []
+    
+    init() {
+        self.manager = CLLocationManager()
+        self.manager.requestWhenInUseAuthorization()
+    }
+    
+    func startMonitoringConditions(clients: [Client]) {
+        Task {
+            if monitor == nil  {
+                monitor = await CLMonitor(monitorNameID)
+            }
+            for identifier in await monitor?.identifiers ?? [""] {
+                await monitor?.remove(identifier)
+            }
+            for client in clients {
+                let condition = getCircularGeographicCondition(client: client)
+                await monitor?.add(condition, identifier: client.id.uuidString)
+            }
+            
+            for try await event in await monitor!.events {
+                
+                if event.state == .satisfied {
+                    idsInside.append(event.identifier)
+                } else {
+                    idsInside.removeAll(where: { $0 == event.identifier })
+                }
+            }
+        }
+    }
+    
+    private func getCircularGeographicCondition(client: Client) -> CLMonitor.CircularGeographicCondition {
+        return CLMonitor.CircularGeographicCondition(
+            center: client.coordinate,
+            radius: CLLocationDistance(client.radius)
+        )
+    }
+}
