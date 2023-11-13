@@ -22,7 +22,7 @@ struct MapView: View {
     
     @Environment(\.dismiss) var dismiss
     
-    let onCommit: (_ delivered: Bool) -> Void
+    let onCommitClient: (_ delivered: Client) -> Void
     
     private func userMapCamera() {
         mapCamera = .region(MKCoordinateRegion(center: clientSelected.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
@@ -39,7 +39,7 @@ struct MapView: View {
     }
     
     private func deliveredToClient() {
-        onCommit(true)
+        onCommitClient(clientSelected)
         dismiss.callAsFunction()
     }
     

@@ -56,8 +56,8 @@ struct ContentView: View {
         
         
         .sheet(item: $client) { client in
-            MapView(clientSelected: client) { onCommit in
-                showProgressView = onCommit
+            MapView(clientSelected: client) { onCommitClient in
+                homeVM.changeToDeliveredStatus(client: onCommitClient)
             }
             .presentationDetents(
                 client.isInGeofence ? [.large, .medium] : [.medium, .large]

@@ -67,6 +67,11 @@ class HomeViewModel: ObservableObject {
         self.clients = updatedClients
     }
     
+    func changeToDeliveredStatus(client: Client) {
+        guard let clientIndexToUpdate = self.clients.firstIndex(where: { $0.id == client.id }) else { return }
+        clients[clientIndexToUpdate].status = .alreadyDelivered
+    }
+    
     
     
 }
