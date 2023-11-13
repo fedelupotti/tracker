@@ -36,7 +36,7 @@ struct ProgressAnimation: View {
             return 125
         case .alreadyDelivered:
             return 250
-        case .toDeliver:
+        case .watingToDeliver:
             return 0
         }
     }
@@ -62,32 +62,29 @@ struct ProgressAnimation: View {
                     HStack {
                         Image(systemName: "checkmark.seal.fill")
                             .font( status == .onGoing ? .title : .callout)
-                            .foregroundStyle(.white, status == .onGoing ? .green : .black)
+                            .foregroundStyle(.white, (status == .inZone || status == .onGoing || status == .alreadyDelivered) ? .green : .black)
                             .animation(.bouncy.delay(animationTime), value: status)
-                            
+                        
                         Spacer()
-                        VStack {
-                            Image(systemName: "checkmark.seal.fill")
-                                .font( status == .inZone ? .title : .callout)
-                                .foregroundStyle(.white, status == .inZone ? .green : .black)
-                                .animation(.bouncy.delay(animationTime), value: status)
-                                
-                        }
+                        
+                        Image(systemName: "checkmark.seal.fill")
+                            .font( status == .inZone ? .title : .callout)
+                            .foregroundStyle(.white, (status == .onGoing || status == .alreadyDelivered) ? .green : .black)
+                            .animation(.bouncy.delay(animationTime), value: status)
+                        
                         Spacer()
+                        
                         Image(systemName: "checkmark.seal.fill")
                             .font( status == .alreadyDelivered ? .title : .callout)
-                            .foregroundStyle(.white, status == .alreadyDelivered ? .green : .black)
+                            .foregroundStyle(.white, (status == .alreadyDelivered) ? .green : .black)
                             .animation(.bouncy.delay(animationTime), value: status)
                     }
-                    
-                    
                 }
                 .frame(width: 260)
             }
-            
         }
     }
 }
 #Preview {
-    ProgressAnimation(status: .toDeliver)
+    ProgressAnimation(status: .watingToDeliver)
 }

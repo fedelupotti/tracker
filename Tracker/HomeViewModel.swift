@@ -59,7 +59,7 @@ class HomeViewModel: ObservableObject {
                 client.isInGeofence = true
                 client.status = .inZone
             } else {
-                client.status = .toDeliver
+                client.status = .watingToDeliver
                 client.isInGeofence = false
             }
             updatedClients.append(client)

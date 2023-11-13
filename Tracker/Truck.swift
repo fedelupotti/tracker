@@ -44,7 +44,7 @@ struct Client: Identifiable {
     }
     
     enum Status {
-        case toDeliver
+        case watingToDeliver
         case onGoing
         case inZone
         case alreadyDelivered
