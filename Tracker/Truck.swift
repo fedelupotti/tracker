@@ -32,6 +32,7 @@ struct Client: Identifiable {
     var isOnGoing: Bool = false
     var isInGeofence: Bool = false
     let radius = 100
+    var status: Status = .onGoing
     
     var coordinate: CLLocationCoordinate2D {
         guard let lat = location?.first, let long = location?.last else { return CLLocationCoordinate2D() }
@@ -40,6 +41,13 @@ struct Client: Identifiable {
         let longDegrees = CLLocationDegrees(floatLiteral: long)
         let cordinate = CLLocationCoordinate2D(latitude: latDegrees, longitude: longDegrees)
         return cordinate
+    }
+    
+    enum Status {
+        case toDeliver
+        case onGoing
+        case inZone
+        case alreadyDelivered
     }
 }
 

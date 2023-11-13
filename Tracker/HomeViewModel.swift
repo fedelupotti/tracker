@@ -57,7 +57,9 @@ class HomeViewModel: ObservableObject {
         for var client in clients {
             if idsInside.contains(client.id.uuidString) {
                 client.isInGeofence = true
+                client.status = .inZone
             } else {
+                client.status = .toDeliver
                 client.isInGeofence = false
             }
             updatedClients.append(client)

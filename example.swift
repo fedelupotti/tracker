@@ -21,14 +21,29 @@ import SwiftUI
  
 struct ProgressAnimation: View {
     @State private var drawingWidth = false
+    
+    var status: Client.Status
+    
+    private let animationTime: TimeInterval = 5
 
     let color: Gradient = Gradient(colors: [Color(red: 0.0, green: 0.5, blue: 0.0), Color(red: 0.0, green: 0.8, blue: 0.2)])
+    
+    private func progressBarStatus() -> CGFloat {
+        switch status {
+        case .onGoing:
+            return 0
+        case .inZone:
+            return 125
+        case .alreadyDelivered:
+            return 250
+        case .toDeliver:
+            return 0
+        }
+    }
  
     var body: some View {
         VStack(alignment: .leading) {
-            Text("RAM")
-                .bold()
- 
+            
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 3)
                     .fill(Color(.systemGray6))
@@ -37,32 +52,32 @@ struct ProgressAnimation: View {
                 RoundedRectangle(cornerRadius: 3)
                     .fill(.indigo.gradient)
                     .fill(color)
-                
-                    .frame(width: drawingWidth ? 125 : 0, height: 12, alignment: .leading)
-                    .animation(.easeInOut(duration: 5), value: false)
-//                        .repeatForever(autoreverses: false), value: drawingWidth)
+                    
+                    .frame(width: progressBarStatus(), alignment: .leading)
+                    .animation(.easeInOut(duration: animationTime), value: status)
             }
-//            .frame(width: 250, height: 12)
-            .onAppear {
-                drawingWidth.toggle()
-            }
+            .frame(width: 250, height: 12)
             .overlay {
                 ZStack(alignment: .leading) {
                     HStack {
                         Image(systemName: "checkmark.seal.fill")
-                            
-                            .font( drawingWidth ? .callout : .title)
-                            .animation(.easeInOut)
-                            .foregroundStyle(.white, .green)
+                            .font( status == .onGoing ? .title : .callout)
+                            .foregroundStyle(.white, status == .onGoing ? .green : .black)
+                            .animation(.bouncy.delay(animationTime), value: status)
                             
                         Spacer()
-                        Image(systemName: "checkmark.seal.fill")
-                            .font(.title2)
-                            .foregroundStyle(.white, .black)
+                        VStack {
+                            Image(systemName: "checkmark.seal.fill")
+                                .font( status == .inZone ? .title : .callout)
+                                .foregroundStyle(.white, status == .inZone ? .green : .black)
+                                .animation(.bouncy.delay(animationTime), value: status)
+                                
+                        }
                         Spacer()
                         Image(systemName: "checkmark.seal.fill")
-                            .font(.title2)
-                            .foregroundStyle(.white, .black)
+                            .font( status == .alreadyDelivered ? .title : .callout)
+                            .foregroundStyle(.white, status == .alreadyDelivered ? .green : .black)
+                            .animation(.bouncy.delay(animationTime), value: status)
                     }
                     
                     
@@ -74,5 +89,5 @@ struct ProgressAnimation: View {
     }
 }
 #Preview {
-    ProgressAnimation()
+    ProgressAnimation(status: .toDeliver)
 }
