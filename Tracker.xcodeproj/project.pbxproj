@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DD217C442AE94B6D00032FB4 /* locationTest.gpx in Resources */ = {isa = PBXBuildFile; fileRef = DD217C432AE94B6D00032FB4 /* locationTest.gpx */; };
 		DD2BA3572AE8197F00F058D7 /* TrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2BA3562AE8197F00F058D7 /* TrackerApp.swift */; };
 		DD2BA3592AE8197F00F058D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2BA3582AE8197F00F058D7 /* ContentView.swift */; };
 		DD2BA35B2AE8198000F058D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD2BA35A2AE8198000F058D7 /* Assets.xcassets */; };
@@ -20,7 +19,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DD217C432AE94B6D00032FB4 /* locationTest.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = locationTest.gpx; path = Tracker/locationTest.gpx; sourceTree = "<group>"; };
 		DD217C452AE9503600032FB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DD2BA3532AE8197F00F058D7 /* Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD2BA3562AE8197F00F058D7 /* TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerApp.swift; sourceTree = "<group>"; };
@@ -32,6 +30,7 @@
 		DD2BA3682AE887AF00F058D7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		DD37D5CA2AF43F5C0057771E /* example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = example.swift; sourceTree = "<group>"; };
 		DDC1DB052AE9B1A500FCD396 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		DDE094202AFE861A00E292EB /* locationTest.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = locationTest.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,7 +48,7 @@
 			isa = PBXGroup;
 			children = (
 				DD37D5CA2AF43F5C0057771E /* example.swift */,
-				DD217C432AE94B6D00032FB4 /* locationTest.gpx */,
+				DDE094202AFE861A00E292EB /* locationTest.gpx */,
 				DD2BA3552AE8197F00F058D7 /* Tracker */,
 				DD2BA3542AE8197F00F058D7 /* Products */,
 			);
@@ -145,7 +144,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD217C442AE94B6D00032FB4 /* locationTest.gpx in Resources */,
 				DD2BA35E2AE8198000F058D7 /* Preview Assets.xcassets in Resources */,
 				DD2BA35B2AE8198000F058D7 /* Assets.xcassets in Resources */,
 			);
@@ -221,7 +219,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -275,7 +273,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -297,6 +295,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tracker/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Find package";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Find Package";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = Package;
@@ -331,6 +331,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tracker/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Find package";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Find Package";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = Package;

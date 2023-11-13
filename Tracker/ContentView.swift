@@ -36,7 +36,6 @@ struct ContentView: View {
                         .animation(.easeInOut, value: client.isInGeofence)
                     
                 }
-                
                 .onTapGesture {
                     presentMapView(withClient: client)
                 }
@@ -45,6 +44,9 @@ struct ContentView: View {
                         presentMapView(withClient: client)
                     }
                 }
+                ProgressAnimation()
+                    .padding(.top, 20)
+                    .padding(.bottom, 10)
             }
         }
         

@@ -14,9 +14,8 @@ struct TrackerApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ProgressAnimation()
-//            ContentView()
-//                .environmentObject(homeVM)
+            ContentView()
+                .environmentObject(homeVM)
         }
     }
 }
