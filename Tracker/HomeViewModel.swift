@@ -59,7 +59,7 @@ class HomeViewModel: ObservableObject {
                 client.isInGeofence = true
                 client.status = .inZone
             } else {
-                client.status = .watingToDeliver
+                client.status = .watingToBeSelectedForDelivering
                 client.isInGeofence = false
             }
             updatedClients.append(client)
@@ -70,6 +70,11 @@ class HomeViewModel: ObservableObject {
     func changeToDeliveredStatus(client: Client) {
         guard let clientIndexToUpdate = self.clients.firstIndex(where: { $0.id == client.id }) else { return }
         clients[clientIndexToUpdate].status = .alreadyDelivered
+    }
+    
+    func startNewDeliveryFor(_ client: Client) {
+        guard let clientIndexToUpdate = self.clients.firstIndex(where: { $0.id == client.id }) else { return }
+        clients[clientIndexToUpdate].status = .selectedToDeliver
     }
     
     

@@ -43,6 +43,44 @@ struct MapView: View {
         dismiss.callAsFunction()
     }
     
+    private func selectAnotherClient(_ client: Client) {
+        clientSelected = client
+    }
+    
+    private func startNewDeliveryFor(_ client: Client) {
+        homeVM.startNewDeliveryFor(client)
+    }
+    
+    private func imageForButton() -> String {
+        switch clientSelected.status {
+        case .inZone:
+            return "shippingbox.fill"
+        case .watingToBeSelectedForDelivering:
+            return "truck.box.badge.clock.fill"
+        case .selectedToDeliver:
+            return "truck.box.badge.clock.fill"
+        case .onGoing:
+            return ""
+        case .alreadyDelivered:
+            return ""
+        }
+    }
+    
+    private func textForButton() -> String {
+        switch clientSelected.status {
+        case .inZone:
+            "Deliver package"
+        case .watingToBeSelectedForDelivering:
+            "Start delivering for \(clientSelected.name ?? "")"
+        case .selectedToDeliver:
+            "Start delivering for \(clientSelected.name ?? "")"
+        case .onGoing:
+            "Start delivering for \(clientSelected.name ?? "")"
+        case .alreadyDelivered:
+            "Start delivering for \(clientSelected.name ?? "")"
+        }
+    }
+    
     var body: some View {
         
         Map(position: $mapCamera, selection: $clientPinSelected) {
@@ -52,12 +90,13 @@ struct MapView: View {
                 Annotation(client.name ?? "", coordinate: client.coordinate) {
                     ZStack {
                         Image(systemName: "box.truck")
+                            .font(.largeTitle)
+                            .foregroundStyle(.blue.opacity(0.0001))
                             .onTapGesture {
-                                print("tapped!")
+                                selectAnotherClient(client)
                             }
                     }
                 }
-                
                 Marker(client.name ?? "", systemImage: "box.truck", coordinate: client.coordinate)
                 MapCircle(center: client.coordinate, radius: CLLocationDistance(integerLiteral: 100))
                     .foregroundStyle(circleColorFor(client))
@@ -69,21 +108,23 @@ struct MapView: View {
             
         }
         .safeAreaInset(edge: .bottom, content: {
-            if clientSelected.isInGeofence {
-                ZStack {
-                    Button {
+            ZStack {
+                Button {
+                    if clientSelected.status == .watingToBeSelectedForDelivering {
+                        startNewDeliveryFor(clientSelected)
+                    } else if clientSelected.status == .inZone {
                         deliveredToClient()
-                    } label: {
-                        HStack {
-                            Image(systemName: "shippingbox.fill")
-                            Text("Deliver package")
-                        }
-                        
                     }
-                    .buttonStyle(.borderedProminent)
+                } label: {
+                    HStack {
+                        Image(systemName:  imageForButton())
+                        Text(textForButton())
+                    }
+                    
                 }
+                .buttonStyle(.borderedProminent)
+                .animation(.snappy(duration: 0.3), value: textForButton())
             }
-            
         })
         .mapControls {
             MapUserLocationButton()

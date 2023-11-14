@@ -36,7 +36,9 @@ struct ProgressAnimation: View {
             return 125
         case .alreadyDelivered:
             return 250
-        case .watingToDeliver:
+        case .watingToBeSelectedForDelivering:
+            return 0
+        case .selectedToDeliver:
             return 0
         }
     }
@@ -86,5 +88,5 @@ struct ProgressAnimation: View {
     }
 }
 #Preview {
-    ProgressAnimation(status: .watingToDeliver)
+    ProgressAnimation(status: .watingToBeSelectedForDelivering)
 }
