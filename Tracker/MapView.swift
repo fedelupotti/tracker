@@ -14,7 +14,7 @@ struct MapView: View {
     
     @State var clientSelected = Client(name: "", packages: nil, location: nil)
     
-    @State var mapCamera: MapCameraPosition = .region(MKCoordinateRegion())
+//    @State var mapCamera: MapCameraPosition = .region(MKCoordinateRegion())
     
     @State var circularStroke: StrokeStyle = StrokeStyle(lineWidth: 0.8, lineCap: .round, lineJoin: .round, dash: [10, 10])
     
@@ -24,9 +24,9 @@ struct MapView: View {
     
     let onCommitClient: (_ delivered: Client) -> Void
     
-    private func userMapCamera() {
-        mapCamera = .region(MKCoordinateRegion(center: clientSelected.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
-    }
+//    private func userMapCamera() {
+//        mapCamera = .region(MKCoordinateRegion(center: clientSelected.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+//    }
     
     private func circleColorFor(_ client: Client) -> some ShapeStyle {
         if client.isInGeofence { 
@@ -82,59 +82,60 @@ struct MapView: View {
     }
     
     var body: some View {
+        Text("")
         
-        Map(position: $mapCamera, selection: $clientPinSelected) {
-            
-            ForEach(homeVM.clients) { client in
-                
-                Annotation(client.name ?? "", coordinate: client.coordinate) {
-                    ZStack {
-                        Image(systemName: "box.truck")
-                            .font(.largeTitle)
-                            .foregroundStyle(.blue.opacity(0.0001))
-                            .onTapGesture {
-                                selectAnotherClient(client)
-                            }
-                    }
-                }
-                Marker(client.name ?? "", systemImage: "box.truck", coordinate: client.coordinate)
-                MapCircle(center: client.coordinate, radius: CLLocationDistance(integerLiteral: 100))
-                    .foregroundStyle(circleColorFor(client))
-                    .stroke(Color(.black).opacity(0.2), style: circularStroke)
-            }
-            
-
-            UserAnnotation()
-            
-        }
-        .safeAreaInset(edge: .bottom, content: {
-            ZStack {
-                Button {
-                    if clientSelected.status == .watingToBeSelectedForDelivering {
-                        startNewDeliveryFor(clientSelected)
-                    } else if clientSelected.status == .inZone {
-                        deliveredToClient()
-                    }
-                } label: {
-                    HStack {
-                        Image(systemName:  imageForButton())
-                        Text(textForButton())
-                    }
-                    
-                }
-                .buttonStyle(.borderedProminent)
-                .animation(.snappy(duration: 0.3), value: textForButton())
-            }
-        })
-        .mapControls {
-            MapUserLocationButton()
-            MapCompass()
-            MapScaleView()
-        }
-        
-        .onAppear(perform: {
-            userMapCamera()
-        })
+//        Map(position: $mapCamera, selection: $clientPinSelected) {
+//            
+//            ForEach(homeVM.clients) { client in
+//                
+//                Annotation(client.name ?? "", coordinate: client.coordinate) {
+//                    ZStack {
+//                        Image(systemName: "box.truck")
+//                            .font(.largeTitle)
+//                            .foregroundStyle(.blue.opacity(0.0001))
+//                            .onTapGesture {
+//                                selectAnotherClient(client)
+//                            }
+//                    }
+//                }
+//                Marker(client.name ?? "", systemImage: "box.truck", coordinate: client.coordinate)
+//                MapCircle(center: client.coordinate, radius: CLLocationDistance(integerLiteral: 100))
+//                    .foregroundStyle(circleColorFor(client))
+//                    .stroke(Color(.black).opacity(0.2), style: circularStroke)
+//            }
+//            
+//
+//            UserAnnotation()
+//            
+//        }
+//        .safeAreaInset(edge: .bottom, content: {
+//            ZStack {
+//                Button {
+//                    if clientSelected.status == .watingToBeSelectedForDelivering {
+//                        startNewDeliveryFor(clientSelected)
+//                    } else if clientSelected.status == .inZone {
+//                        deliveredToClient()
+//                    }
+//                } label: {
+//                    HStack {
+//                        Image(systemName:  imageForButton())
+//                        Text(textForButton())
+//                    }
+//                    
+//                }
+//                .buttonStyle(.borderedProminent)
+//                .animation(.snappy(duration: 0.3), value: textForButton())
+//            }
+//        })
+//        .mapControls {
+//            MapUserLocationButton()
+//            MapCompass()
+//            MapScaleView()
+//        }
+//        
+//        .onAppear(perform: {
+//            userMapCamera()
+//        })
     }
 }
 

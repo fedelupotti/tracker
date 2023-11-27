@@ -8,6 +8,7 @@
 import Foundation
 import CoreLocation
 import Combine
+import BackgroundTasks
 
 final class LocationHandlerMVVM: NSObject {
     
@@ -18,13 +19,16 @@ final class LocationHandlerMVVM: NSObject {
     @Published private(set) var exitedRegion: CLRegion = CLRegion()
     @Published private(set) var locationAuthorizationChanged = false
     
+    @Published var userLocation: CLLocation?
+    
     // MARK: - Private properties
-    private(set) var userLocation: CLLocation?
+//    private(set) var userLocation: CLLocation?
     private(set) var locationActive = false
     private(set) var authorizationStatus: CLAuthorizationStatus = .notDetermined
     
     override init() {
         super.init()
+        setupLocationHandler()
         locationManager.delegate = self
     }
     
@@ -57,6 +61,10 @@ final class LocationHandlerMVVM: NSObject {
         locationManager.pausesLocationUpdatesAutomatically = false
         locationManager.activityType = .fitness
         locationManager.distanceFilter = .leastNonzeroMagnitude
+        
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.showsBackgroundLocationIndicator = true
+        locationManager.pausesLocationUpdatesAutomatically = false
     }
     
     func startMonitoringRegions(regions: [CLCircularRegion]) {
@@ -180,49 +188,55 @@ extension LocationHandlerMVVM: CLLocationManagerDelegate {
     }
 }
 
-class MonitorHandler: ObservableObject, Identifiable {
-    
-    private let manager: CLLocationManager
-    
-    var monitor: CLMonitor?
-    
-    private let monitorNameID = "TrackerAppID"
-    
-    @Published var idsInside: [String] = []
-    
-    init() {
-        self.manager = CLLocationManager()
-        self.manager.requestWhenInUseAuthorization()
-    }
-    
-    func startMonitoringConditions(clients: [Client]) {
-        Task {
-            if monitor == nil  {
-                monitor = await CLMonitor(monitorNameID)
-            }
-            for identifier in await monitor?.identifiers ?? [""] {
-                await monitor?.remove(identifier)
-            }
-            for client in clients {
-                let condition = getCircularGeographicCondition(client: client)
-                await monitor?.add(condition, identifier: client.id.uuidString)
-            }
-            
-            for try await event in await monitor!.events {
-                
-                if event.state == .satisfied {
-                    idsInside.append(event.identifier)
-                } else {
-                    idsInside.removeAll(where: { $0 == event.identifier })
-                }
-            }
-        }
-    }
-    
-    private func getCircularGeographicCondition(client: Client) -> CLMonitor.CircularGeographicCondition {
-        return CLMonitor.CircularGeographicCondition(
-            center: client.coordinate,
-            radius: CLLocationDistance(client.radius)
-        )
-    }
-}
+//class MonitorHandler: ObservableObject, Identifiable {
+//    
+//    private let manager: CLLocationManager
+//    
+//    var monitor: CLMonitor?
+//    
+//    private let monitorNameID = "TrackerAppID"
+//    
+//    @Published var idsInside: [String] = []
+//    
+//    init() {
+//        self.manager = CLLocationManager()
+////        self.manager.requestWhenInUseAuthorization()
+//        self.manager.requestAlwaysAuthorization()
+//        self.manager.allowsBackgroundLocationUpdates = true
+//        self.manager.showsBackgroundLocationIndicator = true
+//        self.manager.pausesLocationUpdatesAutomatically = false
+//    }
+//    
+//    func startMonitoringConditions(clients: [Client]) {
+//        Task {
+//            if monitor == nil  {
+//                monitor = await CLMonitor(monitorNameID)
+//            }
+//            for identifier in await monitor?.identifiers ?? [""] {
+//                await monitor?.remove(identifier)
+//            }
+//            for client in clients {
+//                let condition = getCircularGeographicCondition(client: client)
+//                await monitor?.add(condition, identifier: client.id.uuidString)
+//            }
+//            
+//            for try await event in await monitor!.events {
+//                
+//                if event.state == .satisfied {
+//                    idsInside.append(event.identifier)
+//                    print("Inside Zone :D")
+//                } else {
+//                    print("Outside Zone")
+//                    idsInside.removeAll(where: { $0 == event.identifier })
+//                }
+//            }
+//        }
+//    }
+//    
+//    private func getCircularGeographicCondition(client: Client) -> CLMonitor.CircularGeographicCondition {
+//        return CLMonitor.CircularGeographicCondition(
+//            center: client.coordinate,
+//            radius: CLLocationDistance(client.radius)
+//        )
+//    }
+//}

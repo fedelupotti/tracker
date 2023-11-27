@@ -52,8 +52,8 @@ struct ProgressAnimation: View {
                     .frame(width: 250, height: 12)
 
                 RoundedRectangle(cornerRadius: 3)
-                    .fill(.indigo.gradient)
-                    .fill(color)
+//                    .fill(.indigo.gradient)
+//                    .fill(color)
                     
                     .frame(width: progressBarStatus(), alignment: .leading)
                     .animation(.easeInOut(duration: animationTime), value: status)

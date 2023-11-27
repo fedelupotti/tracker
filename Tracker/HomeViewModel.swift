@@ -11,45 +11,93 @@ import Combine
 
 class HomeViewModel: ObservableObject {
     
-    var monitorHandler: MonitorHandler
+//    var monitorHandler: MonitorHandler
+    var locationHandler: LocationHandlerMVVM
     
     @Published private(set) var clients: [Client] = []
+    @Published var locationSelected: CLLocation = CLLocation()
     
     private var disposables = Set<AnyCancellable>()
+    
+    let locations: [CLLocation] = [
+        CLLocation(latitude: -31.610775994463438, longitude: -60.6738229637158),
+        CLLocation(latitude: -31.610766857481998, longitude: -60.67366203117579),
+        CLLocation(latitude: -31.61077142597282, longitude: -60.67327579307979),
+        CLLocation(latitude: -31.610387671961725, longitude: -60.67303975868778)
+    ]
 
     
     init() {
-        self.monitorHandler = MonitorHandler()
+//        self.monitorHandler = MonitorHandler()
         
-        startMonitoringRegion()
-        upDateStatusForRegion()
+//        startMonitoringRegion()
+//        upDateStatusForRegion()
+        self.locationHandler = LocationHandlerMVVM()
+        self.startMonitoringRegion()
+        
+        self.updateDistance()
+        
+        
+        
+    }
+    
+    func startMonitoringRegion() {
+        guard let lat = Truck.mock.first?.clients?.first?.location?.first! else { return }
+        guard let long = Truck.mock.first?.clients?.first?.location?.last! else { return }
+        guard let clientID = Truck.mock.first?.clients?.first?.id else { return }
+        
+        let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: lat, longitude: long), radius: 100.0, identifier: clientID.uuidString)
+        locationHandler.startMonitoringRegions(regions: [region])
+        
+        clients = Truck.mock.first!.clients!
     }
     
 //    func startMonitoringRegion() {
-//        guard let lat = Truck.mock.first?.clients?.first?.location?.first! else { return }
-//        guard let long = Truck.mock.first?.clients?.first?.location?.last! else { return }
-//        guard let clientID = Truck.mock.first?.clients?.first?.id else { return }
-//        
-//        let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: lat, longitude: long), radius: 10.0, identifier: clientID.uuidString)
-//        locationVM.startMonitoringRegions(regions: [region])
-//        
-//        clients = Truck.mock.first!.clients!
+//        guard let clients = Truck.mock.first?.clients else { return }
+//        self.clients = clients
+//        monitorHandler.startMonitoringConditions(clients: clients)
+//    }
+//    
+//    func upDateStatusForRegion() {
+//        monitorHandler.$idsInside
+//            .receive(on: DispatchQueue.main)
+//            .print()
+//            .sink(receiveValue: { [weak self] idsInside in
+//                self?.update(idsInside: idsInside)
+//            })
+//            .store(in: &disposables)
 //    }
     
-    func startMonitoringRegion() {
-        guard let clients = Truck.mock.first?.clients else { return }
-        self.clients = clients
-        monitorHandler.startMonitoringConditions(clients: clients)
-    }
-    
-    func upDateStatusForRegion() {
-        monitorHandler.$idsInside
+    func updateDistance() {
+        locationHandler.$userLocation
             .receive(on: DispatchQueue.main)
             .print()
-            .sink(receiveValue: { [weak self] idsInside in
-                self?.update(idsInside: idsInside)
+            .sink(receiveValue: { [weak self] _ in
+                self?.selectNearCoordinates()
             })
             .store(in: &disposables)
+    }
+    
+    func selectNearCoordinates() {
+        var nearCoordinates: CLLocation = locations.first!
+        var distance = locationHandler.userLocation?.distance(from: nearCoordinates)
+        
+        for location in locations {
+            let newDistance = locationHandler.userLocation?.distance(from: location)
+            if (newDistance?.magnitude ?? 0) < (distance?.magnitude ?? 0) {
+                distance = newDistance
+                nearCoordinates = location
+            }
+        }
+        locationSelected = nearCoordinates
+        addNearDistance(distance?.magnitude ?? 0)
+    }
+    
+    func addNearDistance(_ distance: Double) {
+        var client = self.clients.first!
+        client.distance.append(distance)
+        clients[0] = client
+        
     }
     
     func update(idsInside: [String]) {

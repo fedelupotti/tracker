@@ -23,34 +23,27 @@ struct ContentView: View {
         client = withClient
         isMapViewPresented = true
     }
+    
+    private func colorForCoordenates() -> Color {
+        if homeVM.locationSelected == homeVM.locations[0] {
+            return .red
+        }
+        else if homeVM.locationSelected == homeVM.locations[1] {
+            return .blue
+        }
+        else if homeVM.locationSelected == homeVM.locations[2] {
+            return .green
+        }
+        else if homeVM.locationSelected == homeVM.locations[3] {
+            return .orange
+        }
+        return .black
+    }
         
     var body: some View {
-        List(homeVM.clients) { client in
-            
-            VStack {
-
-                HStack {
-                    Text(client.name ?? "")
-                    Spacer()
-                    Image(systemName: client.isInGeofence ? "lock.open" : "lock")
-                        .animation(.easeInOut, value: client.isInGeofence)
-                    
-                }
-                
-                .onTapGesture {
-                    presentMapView(withClient: client)
-                }
-                .onChange(of: client.isInGeofence) {
-                    if client.isInGeofence == true {
-                        presentMapView(withClient: client)
-                    }
-                }
-                
-                ProgressAnimation(status: client.status)
-                    .padding(.top, 20)
-                    .padding(.bottom, 10)
-                    
-            }
+        
+        List(homeVM.clients.first?.distance ?? [], id: \.self) { distance in
+            Text("\(distance) meters")
         }
         .listRowSpacing(15)
         

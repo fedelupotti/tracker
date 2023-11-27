@@ -33,6 +33,7 @@ struct Client: Identifiable {
     var isInGeofence: Bool = false
     let radius = 100
     var status: Status = .onGoing
+    var distance: [Double] = []
     
     var coordinate: CLLocationCoordinate2D {
         guard let lat = location?.first, let long = location?.last else { return CLLocationCoordinate2D() }
